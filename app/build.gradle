@@ -1,0 +1,44 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use TestNG for testing
+    testImplementation 'org.testng:testng:7.11.0'
+
+    // Selenium Java
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.31.0'
+
+    // WebDriverManager
+    testImplementation 'io.github.bonigarcia:webdrivermanager:6.0.1'
+
+    // Guava (example version — update if needed)
+    implementation 'com.google.guava:guava:32.1.2-jre'
+}
+
+test {
+    useTestNG {
+        useDefaultListeners = true
+        suites "src/test/resources/testng.xml"
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
+    outputs.upToDateWhen { false }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'flipkart_automation.App'
+}
