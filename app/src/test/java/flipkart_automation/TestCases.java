@@ -29,142 +29,142 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestCases {
     
-    ChromeDriver driver;
+    // ChromeDriver driver;
 
-    @Test
-    public void testCase01() throws InterruptedException{
-        String url = "https://www.flipkart.com/";
-        //Navigate to flipkart
-        Wrappers.navigate(driver, url);
-        if(driver.getCurrentUrl().contains("flipkart")){
-            System.out.println("Navigated to the flipkart");
-        }
-        else{
-            System.out.println("Not Navigated to the flipkart");
-        }
+    // @Test
+    // public void testCase01() throws InterruptedException{
+    //     String url = "https://www.flipkart.com/";
+    //     //Navigate to flipkart
+    //     Wrappers.navigate(driver, url);
+    //     if(driver.getCurrentUrl().contains("flipkart")){
+    //         System.out.println("Navigated to the flipkart");
+    //     }
+    //     else{
+    //         System.out.println("Not Navigated to the flipkart");
+    //     }
         
-        //Make Search
-        WebElement searchBoxInput = driver.findElement(By.xpath("//input[contains(@title,'Search')]"));
-        String washingMachineString = "Washing Machine";
-        Wrappers.sendKeys(driver, searchBoxInput, washingMachineString);
-        WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
-        Wrappers.click(searchIcon, driver);
-        System.out.println("Made Search Successfully");
+    //     //Make Search
+    //     WebElement searchBoxInput = driver.findElement(By.xpath("//input[contains(@title,'Search')]"));
+    //     String washingMachineString = "Washing Machine";
+    //     Wrappers.sendKeys(driver, searchBoxInput, washingMachineString);
+    //     WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
+    //     Wrappers.click(searchIcon, driver);
+    //     System.out.println("Made Search Successfully");
         
-        //Wait till result loads
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='BUOuZu']/span")));
-        Thread.sleep(2000);
-        String washingMachineText = driver.findElement(By.xpath("//input[contains(@title,'Search')]")).getAttribute("value");
-        if(washingMachineText.contains("Washing Machine")){
-            System.out.println("Typed Washing Machine into search box");
-        }
-        else{
-            System.out.println("Not able to type Washing Machine into search box");
-        }
+    //     //Wait till result loads
+    //     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    //     wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='BUOuZu']/span")));
+    //     Thread.sleep(2000);
+    //     String washingMachineText = driver.findElement(By.xpath("//input[contains(@title,'Search')]")).getAttribute("value");
+    //     if(washingMachineText.contains("Washing Machine")){
+    //         System.out.println("Typed Washing Machine into search box");
+    //     }
+    //     else{
+    //         System.out.println("Not able to type Washing Machine into search box");
+    //     }
 
-        WebElement popularity = driver.findElement(By.xpath("//div[@class='sHCOk2']/div[2]"));
-        popularity.click();
-        Thread.sleep(2000);
+    //     WebElement popularity = driver.findElement(By.xpath("//div[@class='sHCOk2']/div[2]"));
+    //     popularity.click();
+    //     Thread.sleep(2000);
 
-        //Counting elements
-        List<WebElement> rating = driver.findElements(By.className("XQDdHH"));
-        int count = Wrappers.countOfItemsBasedOnRatings(driver, rating, 4);
-        System.out.println("Number of Items with less than or equal to given rating 4 are: " + count);
-    }
+    //     //Counting elements
+    //     List<WebElement> rating = driver.findElements(By.className("XQDdHH"));
+    //     int count = Wrappers.countOfItemsBasedOnRatings(driver, rating, 4);
+    //     System.out.println("Number of Items with less than or equal to given rating 4 are: " + count);
+    // }
 
-    @Test
-    public void testCase02() throws InterruptedException{
-        String url = "https://www.flipkart.com/";
-        //Navigate to flipkart
-        Wrappers.navigate(driver, url);
-        if(driver.getCurrentUrl().contains("flipkart")){
-            System.out.println("Navigated to the flipkart");
-        }
-        else{
-            System.out.println("Not Navigated to the flipkart");
-        }
-        Thread.sleep(2000);
+    // @Test
+    // public void testCase02() throws InterruptedException{
+    //     String url = "https://www.flipkart.com/";
+    //     //Navigate to flipkart
+    //     Wrappers.navigate(driver, url);
+    //     if(driver.getCurrentUrl().contains("flipkart")){
+    //         System.out.println("Navigated to the flipkart");
+    //     }
+    //     else{
+    //         System.out.println("Not Navigated to the flipkart");
+    //     }
+    //     Thread.sleep(2000);
         
-        //Make Search
-        WebElement searchBoxInput = driver.findElement(By.xpath("//input[contains(@title,'Search')]"));
-        String iPhoneString = "iPhone";
-        Wrappers.sendKeys(driver, searchBoxInput, iPhoneString);
-        WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
-        Wrappers.click(searchIcon, driver);
-        System.out.println("Made Search Successfully");
-        Thread.sleep(2000);
+    //     //Make Search
+    //     WebElement searchBoxInput = driver.findElement(By.xpath("//input[contains(@title,'Search')]"));
+    //     String iPhoneString = "iPhone";
+    //     Wrappers.sendKeys(driver, searchBoxInput, iPhoneString);
+    //     WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
+    //     Wrappers.click(searchIcon, driver);
+    //     System.out.println("Made Search Successfully");
+    //     Thread.sleep(2000);
 
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='BUOuZu']/span")));
-        String iPhoneText = driver.findElement(By.xpath("//input[contains(@title,'Search')]")).getAttribute("value");
-        if(iPhoneText.contains("iPhone")){
-            System.out.println("Typed iPhone into search box");
-        }
-        else{
-            System.out.println("Not able to type iPhone into search box");
-        }
+    //     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    //     wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='BUOuZu']/span")));
+    //     String iPhoneText = driver.findElement(By.xpath("//input[contains(@title,'Search')]")).getAttribute("value");
+    //     if(iPhoneText.contains("iPhone")){
+    //         System.out.println("Typed iPhone into search box");
+    //     }
+    //     else{
+    //         System.out.println("Not able to type iPhone into search box");
+    //     }
 
-        List<WebElement> items = driver.findElements(By.className("yKfJKb"));
-        Wrappers.printingProductTitle(driver, items, 4);
+    //     List<WebElement> items = driver.findElements(By.className("yKfJKb"));
+    //     Wrappers.printingProductTitle(driver, items, 4);
 
 
-    }
+    // }
 
-    @Test
-    public void testCase03() throws InterruptedException{
-        String url = "https://www.flipkart.com/";
-        //Navigate to flipkart
-        Wrappers.navigate(driver, url);
-        System.out.println("Navigated to Flipkart Successfully");
-        Thread.sleep(2000);
+    // @Test
+    // public void testCase03() throws InterruptedException{
+    //     String url = "https://www.flipkart.com/";
+    //     //Navigate to flipkart
+    //     Wrappers.navigate(driver, url);
+    //     System.out.println("Navigated to Flipkart Successfully");
+    //     Thread.sleep(2000);
         
-        //Make Search
-        WebElement searchBoxInput = driver.findElement(By.xpath("//input[@class='Pke_EE']"));
-        Wrappers.sendKeys(driver, searchBoxInput, "Coffee Mug");
-        WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
-        Wrappers.click(searchIcon, driver);
-        System.out.println("Made Search Successfully");
-        Thread.sleep(2000);
+    //     //Make Search
+    //     WebElement searchBoxInput = driver.findElement(By.xpath("//input[@class='Pke_EE']"));
+    //     Wrappers.sendKeys(driver, searchBoxInput, "Coffee Mug");
+    //     WebElement searchIcon = driver.findElement(By.xpath("//button[contains(@title,'Search ')]"));
+    //     Wrappers.click(searchIcon, driver);
+    //     System.out.println("Made Search Successfully");
+    //     Thread.sleep(2000);
 
         
-        WebElement starCheckBox = driver.findElement(By.xpath("(//div[contains(text(),'above')])[1]"));
-        starCheckBox.click();
-        Thread.sleep(2000);
+    //     WebElement starCheckBox = driver.findElement(By.xpath("(//div[contains(text(),'above')])[1]"));
+    //     starCheckBox.click();
+    //     Thread.sleep(2000);
 
-        List<WebElement> listOfElements = driver.findElements(By.className("slAVV4"));
-        Wrappers.printingCoffeeMugTitle(driver, listOfElements);
-    }
+    //     List<WebElement> listOfElements = driver.findElements(By.className("slAVV4"));
+    //     Wrappers.printingCoffeeMugTitle(driver, listOfElements);
+    // }
 
 
-    @BeforeTest
-    public void startBrowser()
-    {
-        System.setProperty("java.util.logging.config.file", "logging.properties");
+    // @BeforeTest
+    // public void startBrowser()
+    // {
+    //     System.setProperty("java.util.logging.config.file", "logging.properties");
 
-        WebDriverManager.chromedriver().timeout(30).setup();
+    //     WebDriverManager.chromedriver().timeout(30).setup();
 
-        ChromeOptions options = new ChromeOptions();
-        LoggingPreferences logs = new LoggingPreferences();
+    //     ChromeOptions options = new ChromeOptions();
+    //     LoggingPreferences logs = new LoggingPreferences();
 
-        logs.enable(LogType.BROWSER, Level.ALL);
-        logs.enable(LogType.DRIVER, Level.ALL);
-        options.setCapability("goog:loggingPrefs", logs);
-        options.addArguments("--remote-allow-origins=*");
+    //     logs.enable(LogType.BROWSER, Level.ALL);
+    //     logs.enable(LogType.DRIVER, Level.ALL);
+    //     options.setCapability("goog:loggingPrefs", logs);
+    //     options.addArguments("--remote-allow-origins=*");
 
-        System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, "build/chromedriver.log"); 
+    //     System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, "build/chromedriver.log"); 
 
-        driver = new ChromeDriver(options);
+    //     driver = new ChromeDriver(options);
 
-        driver.manage().window().maximize();
-    }
+    //     driver.manage().window().maximize();
+    // }
 
-    @AfterTest
-    public void endTest()
-    {
-        driver.close();
-        driver.quit();
+    // @AfterTest
+    // public void endTest()
+    // {
+    //     driver.close();
+    //     driver.quit();
 
-    }
+    // }
 }

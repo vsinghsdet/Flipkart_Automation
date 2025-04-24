@@ -3,6 +3,8 @@ package flipkart_automation.Wrappers;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,15 +47,16 @@ public class Wrappers {
         for (WebElement element : rating) {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView();", element);
-            if (Double.parseDouble(element.getText()) <= 4) {
+            if (Double.parseDouble(element.getText()) >= 4) {
                 count++;
             }
+            // rating = driver.findElements(By.className("XQDdHH"));
         }
+        
         return count;
     }
 
     public static void printingProductTitle(WebDriver driver, List<WebElement> items, int givenDiscount) {
-        System.out.println("Inside Product Printing");
         try {
             for (WebElement parentElement : items) {
                 WebElement discountElement = parentElement.findElement(By.xpath(".//div[@class='UkUFwK']/span"));
@@ -73,15 +76,12 @@ public class Wrappers {
 
     public static void printingCoffeeMugTitle(WebDriver driver, List<WebElement> listOfElements) {
 
-        try {
             Map<WebElement, Integer> map = new HashMap<>();
             for (WebElement element : listOfElements) {
                 WebElement numberOfRatings = element.findElement(By.className("Wphh3N"));
                 int ratingsInt = Integer.parseInt(numberOfRatings.getText().replaceAll("[(),]", ""));
                 map.put(element, ratingsInt);
             }
-
-            // Map.Entry.comparingByValue(Comparator.reverseOrder())
 
             Map<WebElement, Integer> sortedMap = map.entrySet()
                     .stream()
@@ -98,25 +98,32 @@ public class Wrappers {
                 System.out.println("Title: " + element.findElement(By.className("wjcEIp")).getText());
                 System.out.println("Rating: " + element.findElement(By.className("Wphh3N")).getText());
                 System.out.println("Image URL: "
-                        + element.findElement(By.xpath(".//img[contains(@class,'DByuf4')]")).getAttribute("src"));
+                        + element.findElement(By.xpath(".//img[contains(@class,'DByuf4')]")).getDomAttribute("src"));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-    }
+    
 
     public static WebElement findElementWithRetry(WebDriver driver, By by, int retryCount) {
         return driver.findElement(by);
     }
 
-    public static String capture(WebDriver driver) throws IOException {
+    public static String capture(WebDriver driver) throws IOException{
         File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        File dest = new File(
-                System.getProperty("user.dir") + File.separator + "reports" + System.currentTimeMillis() + ".png");
-        String errflPath = dest.getAbsolutePath();
-        FileUtils.copyFile(srcFile, dest);
-        return errflPath;
+        String reportsFolder = System.getProperty("user.dir")+File.separator+"reports";
+        File directory = new File(reportsFolder);
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        long formattedTimeStamp = Long.parseLong(now.format(formatter));
+
+        String screenShotPath = reportsFolder+File.separator+formattedTimeStamp+".png";
+        File destFile = new File(screenShotPath);
+        FileUtils.copyFile(srcFile, destFile);
+        System.out.println("Screenshot path: "+ screenShotPath);
+        return screenShotPath;
     }
 
 }
